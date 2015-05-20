@@ -36,7 +36,35 @@ dplyr package is used to organise the data while caret is used for pre processin
 ```r
 echo = FALSE
 library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+## 
+## The following object is masked from 'package:stats':
+## 
+##     filter
+## 
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
 library(caret)
+```
+
+```
+## Warning: package 'caret' was built under R version 3.1.3
+```
+
+```
+## Loading required package: lattice
+## Loading required package: ggplot2
+```
+
+```r
 library(rattle)
 ```
 
@@ -52,7 +80,13 @@ library(rattle)
 
 ```r
 library(rpart)
+```
 
+```
+## Warning: package 'rpart' was built under R version 3.1.3
+```
+
+```r
 train <- read.csv("pml-training.csv",stringsAsFactors = FALSE,na.strings=c("","NA","#DIV/0!"))
 test <- read.csv("pml-testing.csv",stringsAsFactors = FALSE)
 ```
@@ -167,7 +201,28 @@ Proceeding with the random forest model, I have decided to use a 5 fold cross va
 ```r
 controlRf <- trainControl(method="cv", 5)
 mod <- train(as.factor(classe) ~ ., data=train_cv, method="rf", trControl=controlRf, ntree=250)
+```
 
+```
+## Loading required package: randomForest
+```
+
+```
+## Warning: package 'randomForest' was built under R version 3.1.3
+```
+
+```
+## randomForest 4.6-10
+## Type rfNews() to see new features/changes/bug fixes.
+## 
+## Attaching package: 'randomForest'
+## 
+## The following object is masked from 'package:dplyr':
+## 
+##     combine
+```
+
+```r
 mod
 ```
 
@@ -181,14 +236,14 @@ mod
 ## No pre-processing
 ## Resampling: Cross-Validated (5 fold) 
 ## 
-## Summary of sample sizes: 9420, 9421, 9421, 9422, 9420 
+## Summary of sample sizes: 9420, 9420, 9422, 9422, 9420 
 ## 
 ## Resampling results across tuning parameters:
 ## 
-##   mtry  Accuracy   Kappa      Accuracy SD  Kappa SD   
-##    2    0.9901496  0.9875384  0.001707930  0.002161709
-##   28    0.9949048  0.9935550  0.001440145  0.001821138
-##   55    0.9925270  0.9905464  0.001633906  0.002067374
+##   mtry  Accuracy   Kappa      Accuracy SD   Kappa SD   
+##    2    0.9919327  0.9897943  0.0007950425  0.001005151
+##   28    0.9957537  0.9946287  0.0015322461  0.001938286
+##   55    0.9895541  0.9867863  0.0034998329  0.004427060
 ## 
 ## Accuracy was used to select the optimal model using  the largest value.
 ## The final value used for the model was mtry = 28.
@@ -209,39 +264,39 @@ confusionMatrix(pred, test_cv$classe)
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 2232   12    0    0    0
-##          B    0 1504    1    0    2
-##          C    0    2 1366    3    0
-##          D    0    0    1 1282    0
-##          E    0    0    0    1 1440
+##          A 2231    5    0    0    0
+##          B    0 1511    3    0    2
+##          C    0    1 1365    4    0
+##          D    0    1    0 1281    1
+##          E    1    0    0    1 1439
 ## 
 ## Overall Statistics
 ##                                           
-##                Accuracy : 0.9972          
-##                  95% CI : (0.9958, 0.9982)
+##                Accuracy : 0.9976          
+##                  95% CI : (0.9962, 0.9985)
 ##     No Information Rate : 0.2845          
 ##     P-Value [Acc > NIR] : < 2.2e-16       
 ##                                           
-##                   Kappa : 0.9965          
+##                   Kappa : 0.9969          
 ##  Mcnemar's Test P-Value : NA              
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            1.0000   0.9908   0.9985   0.9969   0.9986
-## Specificity            0.9979   0.9995   0.9992   0.9998   0.9998
-## Pos Pred Value         0.9947   0.9980   0.9964   0.9992   0.9993
-## Neg Pred Value         1.0000   0.9978   0.9997   0.9994   0.9997
+## Sensitivity            0.9996   0.9954   0.9978   0.9961   0.9979
+## Specificity            0.9991   0.9992   0.9992   0.9997   0.9997
+## Pos Pred Value         0.9978   0.9967   0.9964   0.9984   0.9986
+## Neg Pred Value         0.9998   0.9989   0.9995   0.9992   0.9995
 ## Prevalence             0.2845   0.1935   0.1744   0.1639   0.1838
-## Detection Rate         0.2845   0.1917   0.1741   0.1634   0.1835
-## Detection Prevalence   0.2860   0.1921   0.1747   0.1635   0.1837
-## Balanced Accuracy      0.9989   0.9952   0.9989   0.9984   0.9992
+## Detection Rate         0.2843   0.1926   0.1740   0.1633   0.1834
+## Detection Prevalence   0.2850   0.1932   0.1746   0.1635   0.1837
+## Balanced Accuracy      0.9993   0.9973   0.9985   0.9979   0.9988
 ```
 
 ## Output Generation
 
 
-As one can see, the model has a relatively high level of accuracy and hence I decided to apply the same to the actual test case. Also the code snippet from the module to write the CSV files is added here as well
+As one can see, the model has a high level of accuracy(> 99.7%) and very low out of sample error (< 0.30%) and hence I decided to apply the same to the actual test case. Also the code snippet from the module to write the CSV files is added here as well
 
 
 ```r
