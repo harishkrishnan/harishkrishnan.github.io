@@ -15,7 +15,7 @@ set.seed(1)
 ### Report Content
 This is the report for the Machine Learning Project posted on Practical Machine Learning module of the Data Science Specialisation offered by The Johns Hopkins Univeristy through Coursera.
 
-##Synopsis
+## Synopsis
 
 
 Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible to collect a large amount of data about personal activity relatively inexpensively. In this project, the  data comes from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways.
@@ -31,7 +31,7 @@ site:
 
 ## Loading and preprocessing the data
 
-dplyr package is used to organise the data while caret is used for pre processing and randomForest for building a classification model 
+dpl-yr package is used to organise the data while caret is used for pre processing and randomForest for building a classification model 
 ```{r}
 echo = FALSE
 library(dplyr)
